@@ -5,7 +5,7 @@
 # Note: Generally follows guidelines at https://web.archive.org/web/20170701145736/https://google.github.io/styleguide/shell.xml.
 #
 
-SUPPORTED_PLATFORMS=("Ubuntu")
+set -e
 
 # check_prerequisites - exits if distro is not supported.
 #
