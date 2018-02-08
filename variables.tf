@@ -50,7 +50,7 @@ variable "count_workers" {
 }
 
 variable "version_presto" {
-  default     = "0.189"
+  default     = "0.193"
   description = "The version of Presto to install. See https://repo1.maven.org/maven2/com/facebook/presto/presto-server/."
   type        = "string"
 }
