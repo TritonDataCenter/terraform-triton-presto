@@ -39,9 +39,8 @@ module "presto" {
   image   = "${data.triton_image.ubuntu.id}" # note: using the UBUNTU image here
   package = "g4-general-4G"
 
-  # Public and Private
+  # Private only
   networks = [
-    "${data.triton_network.public.id}",
     "${data.triton_network.private.id}",
   ]
 

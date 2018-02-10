@@ -28,7 +28,7 @@ variable "manta_key" {
 }
 
 variable "count_workers" {
-  default     = "1"
+  default     = "5"
   description = "See module documentation."
   type        = "string"
 }

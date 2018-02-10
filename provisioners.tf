@@ -44,6 +44,10 @@ resource "null_resource" "presto_install_coordinator" {
 resource "null_resource" "presto_install_worker" {
   count = "${var.provision == "true" ? var.count_workers : 0}"
 
+  depends_on = [
+    "null_resource.presto_install_coordinator",
+  ]
+
   triggers {
     machine_ids = "${triton_machine.presto_worker.*.id[count.index]}"
   }

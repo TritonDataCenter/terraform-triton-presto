@@ -59,6 +59,10 @@ resource "triton_machine" "presto_coordinator" {
 resource "triton_machine" "presto_worker" {
   count = "${var.count_workers}"
 
+  depends_on = [
+    "triton_machine.presto_coordinator",
+  ]
+
   name    = "${var.name}-presto-worker-${count.index}"
   package = "${var.package}"
   image   = "${var.image}"
