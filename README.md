@@ -35,14 +35,13 @@ module "bastion" {
 }
 
 module "presto" {
-  source = "github.com/joyent/terraform-triton-presto"
+  source = "../../"
 
   name    = "presto-basic-with-provisioning"
   image   = "${data.triton_image.ubuntu.id}"
   package = "g4-general-4G"
 
   networks = [
-    "${data.triton_network.public.id}",
     "${data.triton_network.private.id}",
   ]
 
@@ -58,10 +57,11 @@ module "presto" {
   manta_key_id = "${var.manta_key_id}"
   manta_key    = "${var.manta_key}"
 
-  bastion_host     = "${element(module.bastion.bastion_ip,0)}"
-  bastion_user     = "${module.bastion.bastion_user}"
-  bastion_role_tag = "${module.bastion.bastion_role_tag}"
+  bastion_host             = "${module.bastion.bastion_address}"
+  bastion_user             = "${module.bastion.bastion_user}"
+  bastion_cns_service_name = "${module.bastion.bastion_cns_service_name}"
 }
+
 ```
 
 ## Examples
@@ -75,9 +75,11 @@ resources. Presto server will be _provisioned_ by Terraform.
 coordinator machine.
 - [`triton_machine.presto_worker`](https://www.terraform.io/docs/providers/triton/r/triton_machine.html): The Presto 
 worker machine(s).
-- [`triton_firewall_rule.ssh`](https://www.terraform.io/docs/providers/triton/r/triton_firewall_rule.html): The firewall
-rule(s) allowing SSH access FROM the bastion machine(s) TO the Presto machine.
-- [`triton_firewall_rule.client_access`](https://www.terraform.io/docs/providers/triton/r/triton_firewall_rule.html): The 
+- [`triton_firewall_rule.ssh_presto_coordinator`](https://www.terraform.io/docs/providers/triton/r/triton_firewall_rule.html): The firewall
+rule(s) allowing SSH access FROM the bastion machine(s) TO the Presto coordinator.
+- [`triton_firewall_rule.ssh_presto_worker`](https://www.terraform.io/docs/providers/triton/r/triton_firewall_rule.html): The firewall
+rule(s) allowing SSH access FROM the bastion machine(s) TO the Presto workers.
+- [`triton_firewall_rule.client_access_presto_coordinator`](https://www.terraform.io/docs/providers/triton/r/triton_firewall_rule.html): The 
 firewall rule(s) allowing access FROM client machines or addresses TO Presto coordinator web ports.
 - [`triton_firewall_rule.http_presto_worker_to_coordinator`](https://www.terraform.io/docs/providers/triton/r/triton_firewall_rule.html): The 
 firewall rule(s) allowing access FROM Presto worker machines TO Presto coordinator web ports.

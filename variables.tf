@@ -32,12 +32,6 @@ variable "user" {
   default     = "root"
 }
 
-variable "role_tag" {
-  description = "The 'role' tag for the Presto machine(s)."
-  type        = "string"
-  default     = "presto"
-}
-
 variable "provision" {
   description = "Boolean 'switch' to indicate if Terraform should do the machine provisioning to install and configure Presto."
   type        = "string"
@@ -96,7 +90,7 @@ variable "cns_service_name_presto_worker" {
 
 variable "client_access" {
   description = <<EOF
-'From' targets to allow client access to Presto' web port - i.e. access from other VMs or public internet.
+'From' targets to allow client access to Presto coordinator' web port - i.e. access from other VMs or public internet.
 See https://docs.joyent.com/public-cloud/network/firewall/cloud-firewall-rules-reference#target
 for target syntax.
 EOF
@@ -121,7 +115,7 @@ variable "bastion_user" {
   type        = "string"
 }
 
-variable "bastion_role_tag" {
-  description = "The 'role' tag for the Presto machine(s) to allow access FROM the Bastion machine(s)."
+variable "bastion_cns_service_name" {
+  description = "The CNS service name for the Prometheus machine(s) to allow access FROM the Bastion machine(s)."
   type        = "string"
 }

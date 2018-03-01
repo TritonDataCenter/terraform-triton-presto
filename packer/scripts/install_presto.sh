@@ -29,11 +29,11 @@ function check_prerequisites() {
 #     $1: the name of the distribution.
 function install_dependencies() {
   log "Updating package index..."
-  apt-get -qq -y update
+  apt-get -qq update
   log "Upgrading existing packages"
-  apt-get -qq -y upgrade
+  apt-get -qq upgrade
   log "Installing prerequisites..."
-  apt-get -qq -y install --no-install-recommends \
+  apt-get -qq --no-install-recommends install \
     wget uuid openjdk-8-jdk-headless openjdk-8-dbg htop libnss3 dc netcat \
     unattended-upgrades
 }

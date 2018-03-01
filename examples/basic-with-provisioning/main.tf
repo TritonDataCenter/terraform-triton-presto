@@ -56,7 +56,7 @@ module "presto" {
   manta_key_id = "${var.manta_key_id}"
   manta_key    = "${var.manta_key}"
 
-  bastion_host     = "${element(module.bastion.bastion_ip,0)}"
-  bastion_user     = "${module.bastion.bastion_user}"
-  bastion_role_tag = "${module.bastion.bastion_role_tag}"
+  bastion_host             = "${module.bastion.bastion_address}"
+  bastion_user             = "${module.bastion.bastion_user}"
+  bastion_cns_service_name = "${module.bastion.bastion_cns_service_name}"
 }

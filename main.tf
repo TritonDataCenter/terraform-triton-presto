@@ -35,10 +35,6 @@ resource "triton_machine" "presto_coordinator" {
 
   networks = ["${var.networks}"]
 
-  tags {
-    role = "${var.role_tag}"
-  }
-
   cns {
     services = ["${var.cns_service_name_presto_coordinator}"]
   }
@@ -71,10 +67,6 @@ resource "triton_machine" "presto_worker" {
 
   networks = ["${var.networks}"]
 
-  tags {
-    role = "${var.role_tag}"
-  }
-
   cns {
     services = ["${var.cns_service_name_presto_worker}"]
   }
@@ -95,16 +87,22 @@ resource "triton_machine" "presto_worker" {
 #
 # Firewall Rules
 #
-resource "triton_firewall_rule" "ssh" {
-  rule        = "FROM tag \"role\" = \"${var.bastion_role_tag}\" TO tag \"role\" = \"${var.role_tag}\" ALLOW tcp PORT 22"
+resource "triton_firewall_rule" "ssh_presto_coordinator" {
+  rule        = "FROM tag \"triton.cns.services\" = \"${var.bastion_cns_service_name}\" TO tag \"triton.cns.services\" = \"${var.cns_service_name_presto_coordinator}\" ALLOW tcp PORT 22"
   enabled     = true
-  description = "${var.name} - Allow access from bastion hosts to Presto servers."
+  description = "${var.name} - Allow access from bastion hosts to Presto coordinator servers."
 }
 
-resource "triton_firewall_rule" "client_access" {
+resource "triton_firewall_rule" "ssh_presto_worker" {
+  rule        = "FROM tag \"triton.cns.services\" = \"${var.bastion_cns_service_name}\" TO tag \"triton.cns.services\" = \"${var.cns_service_name_presto_worker}\" ALLOW tcp PORT 22"
+  enabled     = true
+  description = "${var.name} - Allow access from bastion hosts to Presto workers."
+}
+
+resource "triton_firewall_rule" "client_access_presto_coordinator" {
   count = "${length(var.client_access)}"
 
-  rule        = "FROM ${var.client_access[count.index]} TO tag \"role\" = \"${var.role_tag}\" ALLOW tcp PORT 8080"
+  rule        = "FROM ${var.client_access[count.index]} TO tag \"triton.cns.services\" = \"${var.cns_service_name_presto_coordinator}\" ALLOW tcp PORT 8080"
   enabled     = true
   description = "${var.name} - Allow access from clients to Presto servers."
 }
