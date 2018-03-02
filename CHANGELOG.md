@@ -13,7 +13,8 @@ BACKWARDS INCOMPATIBILITIES / NOTES:
 IMPROVEMENTS:
 
   * Change firewall rules to rely on CNS service names instead of (now removed) `role` tag.
-
+  * Update Presto version to 0.195.
+  * Add JVM flags to print GC details and timestamps.
   
 ## 1.0.0-rc1 (2018-02-10)
 

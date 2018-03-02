@@ -263,6 +263,8 @@ node.data-dir=/var/lib/presto/
 " > /etc/presto/node.properties
 
   /usr/bin/printf "-server
+-XX:+PrintGC
+-XX:+PrintGCDateStamps
 -XX:MaxRAM=15500m
 -Xmx14000m
 -XX:+UseG1GC
