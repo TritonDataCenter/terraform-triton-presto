@@ -11,8 +11,13 @@ variable "image" {
   type        = "string"
 }
 
-variable "package" {
-  description = "The package to deploy as the Presto machine(s)."
+variable "coordinator_package" {
+  description = "The package to deploy as the Presto coordinator."
+  type        = "string"
+}
+
+variable "worker_package" {
+  description = "The package to deploy as the Presto worker machines."
   type        = "string"
 }
 

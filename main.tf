@@ -27,8 +27,8 @@ locals {
 # Machines
 #
 resource "triton_machine" "presto_coordinator" {
-  name    = "${var.name}-presto"
-  package = "${var.package}"
+  name    = "${var.name}-presto-coordinator"
+  package = "${var.coordinator_package}"
   image   = "${var.image}"
 
   firewall_enabled = true
@@ -60,7 +60,7 @@ resource "triton_machine" "presto_worker" {
   ]
 
   name    = "${var.name}-presto-worker-${count.index}"
-  package = "${var.package}"
+  package = "${var.worker_package}"
   image   = "${var.image}"
 
   firewall_enabled = true

@@ -35,9 +35,10 @@ module "bastion" {
 module "presto" {
   source = "../../"
 
-  name    = "presto-basic-with-provisioning"
-  image   = "${data.triton_image.ubuntu.id}" # note: using the UBUNTU image here
-  package = "g4-general-4G"
+  name                = "presto-basic-with-provisioning"
+  image               = "${data.triton_image.ubuntu.id}" # note: using the UBUNTU image here
+  coordinator_package = "g4-general-4G"
+  worker_package      = "g4-general-16G"
 
   # Private only
   networks = [

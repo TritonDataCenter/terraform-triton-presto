@@ -8,6 +8,7 @@ BACKWARDS INCOMPATIBILITIES / NOTES:
   * Change `presto_worker_ip` output to `presto_worker_primaryip`. 
   * Change `presto_address` output to `presto_coordinator_address`. 
   * Remove `role_tag` variable and `presto_role_tag` output.
+  * Split `package` variable into `coordinator_package` and `worker_package`.
 
 IMPROVEMENTS:
 
