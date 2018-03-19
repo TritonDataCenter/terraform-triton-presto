@@ -34,7 +34,7 @@ function install_dependencies() {
   apt-get -qq upgrade
   log "Installing prerequisites..."
   apt-get -qq --no-install-recommends install \
-    wget uuid openjdk-8-jdk-headless openjdk-8-dbg htop libnss3 dc netcat \
+    wget uuid openjdk-9-jdk-headless openjdk-9-dbg htop libnss3 dc netcat \
     unattended-upgrades
 }
 
@@ -43,7 +43,7 @@ function install_dependencies() {
 # Parameters:
 #     None.
 function configure_jvm() {
-  echo "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre" >> /etc/environment
+  echo "JAVA_HOME=/usr/lib/jvm/java-9-openjdk-amd64" >> /etc/environment
 
   log "Adding libnss PKCS11 extensions to the JVM"
 
@@ -254,7 +254,8 @@ EOF
   tar -C /usr/local -xzf /tmp/hadoop-snappy-native-linux-amd64.tar.gz
 
   log "Installing Presto Manta Connector ${version_presto_manta}..."
-  wget -q -O ${manta_presto_library_path} "https://github.com/joyent/presto-manta/releases/download/${version_presto_manta}/presto-manta-${version_presto_manta}-jar-with-dependencies.jar"
+  #wget -q -O ${manta_presto_library_path} "https://github.com/joyent/presto-manta/releases/download/${version_presto_manta}/presto-manta-${version_presto_manta}-jar-with-dependencies.jar"
+  wget -q -O ${manta_presto_library_path} https://us-east.manta.joyent.com/cameron.stokes/public/projects/presto-manta/presto-manta-1.0.0-SNAPSHOT-jar-with-dependencies.jar
 
   /usr/bin/printf "
 node.environment=production
@@ -263,8 +264,7 @@ node.data-dir=/var/lib/presto/
 " > /etc/presto/node.properties
 
   /usr/bin/printf "-server
--XX:+PrintGC
--XX:+PrintGCDateStamps
+-Xlog:gc::time
 -XX:MaxRAM=15500m
 -Xmx14000m
 -XX:+UseG1GC
