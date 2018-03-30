@@ -3,6 +3,7 @@
 
 BACKWARDS INCOMPATIBILITIES / NOTES:
 
+  * Update Presto version to 0.197.
   * Changes for [terraform-triton-bastion - 1.0.0-rc2](https://github.com/joyent/terraform-triton-bastion/blob/master/CHANGELOG.md#100-rc2-unreleased).
   * Change `presto_coordinator_ip` output to `presto_coordinator_primaryip`. 
   * Change `presto_worker_ip` output to `presto_worker_primaryip`. 
